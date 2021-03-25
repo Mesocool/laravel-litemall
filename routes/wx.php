@@ -36,3 +36,11 @@ Route::any('auth/logout', 'AuthController@logout');
 Route::post('auth/reset', 'AuthController@reset');
 // 用户修改信息
 Route::post('auth/profile', 'AuthController@profile');
+
+Route::get('address/list', 'AddressController@list');
+
+Route::post('address/save', 'AddressController@save');
+
+Route::post('address/delete', 'AddressController@delete');
+
+Route::any('address/detail', 'AddressController@detail');

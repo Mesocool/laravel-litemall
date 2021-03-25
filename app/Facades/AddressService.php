@@ -7,11 +7,11 @@
  * ===========================================================================
  * @created          PhpStorm
  * ===========================================================================
- * @file             BaseService.php
+ * @file             AddressService.php
  * ===========================================================================
  * @author           zhoushuaishuai <zhouqu@vmcshop.com>
  * ===========================================================================
- * @ctime:           2021/3/24 下午9:49
+ * @ctime:           2021/3/25 下午9:53
  * ===========================================================================
  * @version          1.0
  * ===========================================================================
@@ -20,34 +20,15 @@
  *
  */
 
-namespace App\Services;
+namespace App\Facades;
 
-use App\Exceptions\BusinessException;
+use Illuminate\Support\Facades\Facade;
 
-class BaseService
+class AddressService extends Facade
 {
-//    protected static $_instance;
-//
-//    private function __construct()
-//    {
-//
-//    }
-//
-//    private function __clone()
-//    {
-//    }
-//
-//    public static function getInstance()
-//    {
-//        if (static::$_instance instanceof static) {
-//            return static::$_instance;
-//        }
-//        static::$_instance = new static;
-//        return static::$_instance;
-//    }
 
-    protected function throwBussinessException(array $codeResponse,$info='')
+    public static function getFacadeAccessor()
     {
-        throw new BusinessException($codeResponse,$info);
+        return 'addressService';
     }
 }
