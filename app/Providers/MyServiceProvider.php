@@ -2,9 +2,13 @@
 
 namespace App\Providers;
 
-use App\Services\AddressService;
+use App\Services\Goods\BrandService;
+use App\Services\Goods\CatalogService;
+use App\Services\Goods\GoodsService;
+use App\Services\SearchService;
+use App\Services\User\AddressService;
+use App\Services\User\UserService;
 use Illuminate\Support\ServiceProvider;
-use App\Services\UserService;
 
 class MyServiceProvider extends ServiceProvider
 {
@@ -20,11 +24,21 @@ class MyServiceProvider extends ServiceProvider
         // 用户服务
         $this->app->singleton('userService', function () {
             return new UserService();
-//            return UserService::getInstance();
         });
         $this->app->singleton('addressService', function () {
             return new AddressService();
-//            return UserService::getInstance();
+        });
+        $this->app->singleton('catalogService', function () {
+            return new CatalogService();
+        });
+        $this->app->singleton('brandService', function () {
+            return new BrandService();
+        });
+        $this->app->singleton('goodsService', function () {
+            return new GoodsService();
+        });
+        $this->app->singleton('searchService', function () {
+            return new SearchService();
         });
     }
 

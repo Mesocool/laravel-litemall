@@ -7,11 +7,11 @@
  * ===========================================================================
  * @created          PhpStorm
  * ===========================================================================
- * @file             AddressService.php
+ * @file             SearchService.php
  * ===========================================================================
  * @author           zhoushuaishuai <zhouqu@vmcshop.com>
  * ===========================================================================
- * @ctime:           2021/3/25 下午9:53
+ * @ctime:           2021/3/28 下午6:52
  * ===========================================================================
  * @version          1.0
  * ===========================================================================
@@ -20,25 +20,20 @@
  *
  */
 
-namespace App\Facades;
-
-use Illuminate\Support\Facades\Facade;
+namespace App\Services;
 
 
-/**
- * Class AddressService
- * @package App\Facades
- * @method static Model|null queryByUid(int $id)
- * @method static Model|null dealList(Collection $list)
- * @method static Model|false|BusinessException saveAddress(int $uid,array $address)
- * @method static true|false|BusinessException deleteAddress(int $uid,array $addressId)
- * @method static Model|null queryByUidAndAdressId(int $uid,array $addressId)
- */
-class AddressService extends Facade
+use App\Models\SearchHistory;
+
+class SearchService extends BaseService
 {
 
-    public static function getFacadeAccessor()
+    public function saveGoodsSearchHistory(int $uid, string $keyword, string $from)
     {
-        return 'addressService';
+        return SearchHistory::query()->create([
+            'user_id' => $uid,
+            'keyword' => $keyword,
+            'from' => $from,
+        ]);
     }
 }

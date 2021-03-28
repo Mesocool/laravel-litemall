@@ -28,11 +28,9 @@ class CodeResponse
     const SUCCESS = [0, '操作成功'];
     const FAILURE = [-1, '操作失败'];
     const PARAM_ILLEGAL = [401, '非法参数'];
+    const PARAM_BAD_VALUE = [402, '错误参数'];
     const UN_LOGIN = [501,'未登录'];
     const UPDATE_FAILED = [505,'更新数据失败'];
-
-    const PARAM_BAD_VALUE = [402, '错误参数'];
-
     // 业务状态码
     const AUTH_INVALID_ACCOUNT = [700, '账户非法'];
     const AUTH_CAPTCHA_UNSUPPORT = [701, '验证码服务不支持'];

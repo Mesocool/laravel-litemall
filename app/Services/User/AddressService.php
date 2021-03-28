@@ -20,11 +20,12 @@
  *
  */
 
-namespace App\Services;
+namespace App\Services\User;
 
 
 use App\CodeResponse;
-use App\Models\Address;
+use App\Models\User\Address;
+use App\Services\BaseService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -33,7 +34,7 @@ class AddressService extends BaseService
 
     public function queryByUid(int $id)
     {
-        return Address::query()->where('id', $id)->where('deleted', 0)->get();
+        return Address::query()->where('user_id', $id)->where('deleted', 0)->get();
     }
 
     public function queryByUidAndAdressId(int $uid, int $addressId)
@@ -59,6 +60,9 @@ class AddressService extends BaseService
         if (!$uid || $uid < 1) {
             $this->throwBussinessException(CodeResponse::PARAM_ILLEGAL);
         }
+        if ($address['isDefault']) {
+            Address::query()->where('user_id', $uid)->update(['is_default' => 0]);
+        }
         return Address::create([
             'name' => $address['name'],
             'user_id' => $uid,
@@ -75,7 +79,7 @@ class AddressService extends BaseService
 
     public function deleteAddress(int $uid, int $addressId)
     {
-        $address = $this->queryByUidAndAdressId($uid,$addressId);
+        $address = $this->queryByUidAndAdressId($uid, $addressId);
         if (!$address) {
             $this->throwBussinessException(CodeResponse::PARAM_BAD_VALUE);
         }

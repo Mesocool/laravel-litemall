@@ -7,11 +7,11 @@
  * ===========================================================================
  * @created          PhpStorm
  * ===========================================================================
- * @file             AddressService.php
+ * @file             MyService.php
  * ===========================================================================
  * @author           zhoushuaishuai <zhouqu@vmcshop.com>
  * ===========================================================================
- * @ctime:           2021/3/25 下午9:53
+ * @ctime:           2021/3/26 下午4:41
  * ===========================================================================
  * @version          1.0
  * ===========================================================================
@@ -24,21 +24,17 @@ namespace App\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-
 /**
- * Class AddressService
+ * Class BrandService
  * @package App\Facades
- * @method static Model|null queryByUid(int $id)
- * @method static Model|null dealList(Collection $list)
- * @method static Model|false|BusinessException saveAddress(int $uid,array $address)
- * @method static true|false|BusinessException deleteAddress(int $uid,array $addressId)
- * @method static Model|null queryByUidAndAdressId(int $uid,array $addressId)
+ * @method static Model|null query(int $page, int $limit, string $sort = '', string $order = '', array $columns = ['*'])
+ * @method static Model|null findById(int $id)
  */
-class AddressService extends Facade
+class BrandService extends Facade
 {
 
     public static function getFacadeAccessor()
     {
-        return 'addressService';
+        return 'brandService';
     }
 }

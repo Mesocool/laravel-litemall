@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Wx;
 
 use App\CodeResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class WxController extends Controller
@@ -47,8 +49,50 @@ class WxController extends Controller
         return Auth::guard('wx')->user();
     }
 
-    public function successOrFail($isSuccess, array $codeResponse = CodeResponse::FAILURE, $data = null, $info = '')
+    protected function successOrFail($isSuccess, array $codeResponse = CodeResponse::FAILURE, $data = null, $info = '')
     {
         return $isSuccess ? $this->success($data, $info) : $this->failure($codeResponse, $info);
+    }
+
+    protected function paginate($list)
+    {
+        if ($list instanceof LengthAwarePaginator) {
+            return [
+                'total' => $list->total(),
+                'page' => $list->currentPage(),
+                'limit' => $list->perPage(),
+                'pages' => $list->lastPage(),
+                'list' => $list ? $list->items() : [],
+            ];
+        }
+        if ($list instanceof Collection) {
+            return [
+                'total' => $list->count(),
+                'page' => 1,
+                'limit' => $list->count(),
+                'pages' => 1,
+                'list' => $list ? $list->toArray() : [],
+            ];
+        }
+        if (is_array($list)) {
+            $total = count($list);
+            return [
+                'total' => $total,
+                'page' => 1,
+                'limit' => $total,
+                'pages' => 1,
+                'list' => $list ?: [],
+            ];
+        }
+    }
+
+    protected function successPaginate($list)
+    {
+        return $this->success($this->paginate($list));
+    }
+
+    protected function isLogin()
+    {
+        return !is_null($this->user());
     }
 }

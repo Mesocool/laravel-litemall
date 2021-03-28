@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Goods;
 
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Model;
 
-class Address extends Model
+class Goods extends BaseModel
 {
-    //
-    protected $table = 'address';
+
+    protected $table = 'goods';
 
     const UPDATED_AT = 'update_time';
 
@@ -17,6 +18,5 @@ class Address extends Model
 
     protected $casts = [
         'deleted' => 'boolean',
-        'is_default' => 'boolean',
     ];
 }

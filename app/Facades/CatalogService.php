@@ -7,11 +7,11 @@
  * ===========================================================================
  * @created          PhpStorm
  * ===========================================================================
- * @file             AddressService.php
+ * @file             CatalogService.php
  * ===========================================================================
  * @author           zhoushuaishuai <zhouqu@vmcshop.com>
  * ===========================================================================
- * @ctime:           2021/3/25 下午9:53
+ * @ctime:           2021/3/26 下午2:23
  * ===========================================================================
  * @version          1.0
  * ===========================================================================
@@ -26,19 +26,18 @@ use Illuminate\Support\Facades\Facade;
 
 
 /**
- * Class AddressService
+ * Class CatalogService
  * @package App\Facades
- * @method static Model|null queryByUid(int $id)
- * @method static Model|null dealList(Collection $list)
- * @method static Model|false|BusinessException saveAddress(int $uid,array $address)
- * @method static true|false|BusinessException deleteAddress(int $uid,array $addressId)
- * @method static Model|null queryByUidAndAdressId(int $uid,array $addressId)
+ * @method static Model|null queryL1()
+ * @method static Model|null getCatagoryById(int $id)
+ * @method static Model|null queryByPid(int $pid)
+ * @method static Model|null findById(int $id)
+ *
  */
-class AddressService extends Facade
+class CatalogService extends Facade
 {
-
     public static function getFacadeAccessor()
     {
-        return 'addressService';
+        return 'catalogService';
     }
 }

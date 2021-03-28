@@ -3,14 +3,11 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class AddressTest extends TestCase
+class BrandTest extends TestCase
 {
     use DatabaseTransactions;
-
     /**
      * A basic feature test example.
      *
@@ -23,28 +20,19 @@ class AddressTest extends TestCase
 //        $response->assertStatus(200);
 //    }
 
-    public function testAddressList()
+    public function testBrandList()
     {
 
-        $response = $this->get('wx/address/list', $this->getJwtToken());
+        $response = $this->get('wx/brand/list');
         $content = $response->getOriginalContent();
         $this->assertEquals(0, $content['errno']);
 //        dd($response1->getOriginalContent());
     }
 
-    public function testAddressDetail()
+    public function testBrandDetail()
     {
 
-        $response = $this->post('wx/address/detail', ['id' => 1], $this->getJwtToken());
-        $content = $response->getOriginalContent();
-        $this->assertEquals(0, $content['errno']);
-//        dd($response1->getOriginalContent());
-    }
-
-    public function testAddressDelete()
-    {
-
-        $response = $this->post('wx/address/delete', ['id' => 1], $this->getJwtToken());
+        $response = $this->get('wx/brand/detail?id=1001007');
         $content = $response->getOriginalContent();
         $this->assertEquals(0, $content['errno']);
 //        dd($response1->getOriginalContent());

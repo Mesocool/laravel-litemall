@@ -7,11 +7,11 @@
  * ===========================================================================
  * @created          PhpStorm
  * ===========================================================================
- * @file             AddressService.php
+ * @file             CatalogService.php
  * ===========================================================================
  * @author           zhoushuaishuai <zhouqu@vmcshop.com>
  * ===========================================================================
- * @ctime:           2021/3/25 下午9:53
+ * @ctime:           2021/3/26 下午2:21
  * ===========================================================================
  * @version          1.0
  * ===========================================================================
@@ -20,25 +20,37 @@
  *
  */
 
-namespace App\Facades;
-
-use Illuminate\Support\Facades\Facade;
+namespace App\Services\Goods;
 
 
-/**
- * Class AddressService
- * @package App\Facades
- * @method static Model|null queryByUid(int $id)
- * @method static Model|null dealList(Collection $list)
- * @method static Model|false|BusinessException saveAddress(int $uid,array $address)
- * @method static true|false|BusinessException deleteAddress(int $uid,array $addressId)
- * @method static Model|null queryByUidAndAdressId(int $uid,array $addressId)
- */
-class AddressService extends Facade
+use App\Models\Goods\Catalog;
+use App\Services\BaseService;
+
+class CatalogService extends BaseService
 {
 
-    public static function getFacadeAccessor()
+    public function queryL1()
     {
-        return 'addressService';
+        return Catalog::query()->where('level','L1')->where('deleted',0)->get();
+    }
+
+    public function getCatagoryById(int $id)
+    {
+        return Catalog::query()->find($id);
+    }
+
+    public function queryByPid(int $pid)
+    {
+        return Catalog::query()->where('pid',$pid)->where('deleted',0)->get();
+    }
+
+    public function findById($id)
+    {
+        return Catalog::query()->where('id',$id)->where('deleted',0)->first();
+    }
+
+    public function queryL2ByIds(array $ids)
+    {
+        return Catalog::query()->whereIn('id',$ids)->get();
     }
 }

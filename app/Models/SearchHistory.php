@@ -7,11 +7,11 @@
  * ===========================================================================
  * @created          PhpStorm
  * ===========================================================================
- * @file             AddressService.php
+ * @file             SearchHistory.php
  * ===========================================================================
  * @author           zhoushuaishuai <zhouqu@vmcshop.com>
  * ===========================================================================
- * @ctime:           2021/3/25 下午9:53
+ * @ctime:           2021/3/28 下午6:56
  * ===========================================================================
  * @version          1.0
  * ===========================================================================
@@ -20,25 +20,20 @@
  *
  */
 
-namespace App\Facades;
+namespace App\Models;
 
-use Illuminate\Support\Facades\Facade;
-
-
-/**
- * Class AddressService
- * @package App\Facades
- * @method static Model|null queryByUid(int $id)
- * @method static Model|null dealList(Collection $list)
- * @method static Model|false|BusinessException saveAddress(int $uid,array $address)
- * @method static true|false|BusinessException deleteAddress(int $uid,array $addressId)
- * @method static Model|null queryByUidAndAdressId(int $uid,array $addressId)
- */
-class AddressService extends Facade
+class SearchHistory extends BaseModel
 {
+    //
+    protected $table = 'search_history';
 
-    public static function getFacadeAccessor()
-    {
-        return 'addressService';
-    }
+    const UPDATED_AT = 'update_time';
+
+    const CREATED_AT = 'add_time';
+
+    protected $guarded = [];
+
+    protected $casts = [
+        'deleted' => 'boolean',
+    ];
 }

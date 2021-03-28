@@ -7,11 +7,11 @@
  * ===========================================================================
  * @created          PhpStorm
  * ===========================================================================
- * @file             AddressService.php
+ * @file             BrandService.php
  * ===========================================================================
  * @author           zhoushuaishuai <zhouqu@vmcshop.com>
  * ===========================================================================
- * @ctime:           2021/3/25 下午9:53
+ * @ctime:           2021/3/26 下午4:38
  * ===========================================================================
  * @version          1.0
  * ===========================================================================
@@ -20,25 +20,24 @@
  *
  */
 
-namespace App\Facades;
-
-use Illuminate\Support\Facades\Facade;
+namespace App\Services\Goods;
 
 
-/**
- * Class AddressService
- * @package App\Facades
- * @method static Model|null queryByUid(int $id)
- * @method static Model|null dealList(Collection $list)
- * @method static Model|false|BusinessException saveAddress(int $uid,array $address)
- * @method static true|false|BusinessException deleteAddress(int $uid,array $addressId)
- * @method static Model|null queryByUidAndAdressId(int $uid,array $addressId)
- */
-class AddressService extends Facade
+use App\Models\Goods\Brand;
+use App\Services\BaseService;
+
+class BrandService extends BaseService
 {
 
-    public static function getFacadeAccessor()
+    public function query(int $page, int $limit, string $sort = '', string $order = '', array $columns = ['*'])
     {
-        return 'addressService';
+        $query = Brand::query()->where('deleted', 0);
+        ($sort && $order) && $query->orderBy($sort, $order);
+        return $query->paginate($limit, $columns, 'page', $page);
+    }
+
+    public function findById($id)
+    {
+        return Brand::query()->find($id);
     }
 }

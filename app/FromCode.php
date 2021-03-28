@@ -7,11 +7,11 @@
  * ===========================================================================
  * @created          PhpStorm
  * ===========================================================================
- * @file             AddressService.php
+ * @file             FromCode.php
  * ===========================================================================
  * @author           zhoushuaishuai <zhouqu@vmcshop.com>
  * ===========================================================================
- * @ctime:           2021/3/25 下午9:53
+ * @ctime:           2021/3/28 下午6:59
  * ===========================================================================
  * @version          1.0
  * ===========================================================================
@@ -19,26 +19,12 @@
  * ----------------------------------- PHP -----------------------------------
  *
  */
+namespace App;
 
-namespace App\Facades;
-
-use Illuminate\Support\Facades\Facade;
-
-
-/**
- * Class AddressService
- * @package App\Facades
- * @method static Model|null queryByUid(int $id)
- * @method static Model|null dealList(Collection $list)
- * @method static Model|false|BusinessException saveAddress(int $uid,array $address)
- * @method static true|false|BusinessException deleteAddress(int $uid,array $addressId)
- * @method static Model|null queryByUidAndAdressId(int $uid,array $addressId)
- */
-class AddressService extends Facade
+class FromCode
 {
 
-    public static function getFacadeAccessor()
-    {
-        return 'addressService';
-    }
+    const SEARCH_GOODS_HISTORY_FROM_WX = 'wx';
+    const SEARCH_GOODS_HISTORY_FROM_PC = 'pc';
+    const SEARCH_GOODS_HISTORY_FROM_APP = 'app';
 }
