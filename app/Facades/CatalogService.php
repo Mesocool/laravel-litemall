@@ -32,6 +32,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static Model|null getCatagoryById(int $id)
  * @method static Model|null queryByPid(int $pid)
  * @method static Model|null findById(int $id)
+ * @method static Model|null queryL2ByIds(array $ids)
  *
  */
 class CatalogService extends Facade

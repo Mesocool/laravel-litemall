@@ -7,11 +7,11 @@
  * ===========================================================================
  * @created          PhpStorm
  * ===========================================================================
- * @file             FromCode.php
+ * @file             Issue.php
  * ===========================================================================
  * @author           zhoushuaishuai <zhouqu@vmcshop.com>
  * ===========================================================================
- * @ctime:           2021/3/28 下午6:59
+ * @ctime:           2021/3/28 下午10:22
  * ===========================================================================
  * @version          1.0
  * ===========================================================================
@@ -19,18 +19,22 @@
  * ----------------------------------- PHP -----------------------------------
  *
  */
-namespace App;
 
-class FromCode
+
+namespace App\Models;
+
+class Issue extends BaseModel
 {
 
-    const SEARCH_GOODS_HISTORY_FROM_WX = 'wx';
-    const SEARCH_GOODS_HISTORY_FROM_PC = 'pc';
-    const SEARCH_GOODS_HISTORY_FROM_APP = 'app';
+    protected $table = 'issue';
 
-    const COMMENT_TYPE_GOODS_CODE = 0;
-    const COMMENT_TYPE_TOPIC_CODE = 1;
+    const UPDATED_AT = 'update_time';
 
-    const COLLECT_TYPE_GOODS_CODE = 0;
-    const COLLECT_TYPE_TOPIC_CODE = 1;
+    const CREATED_AT = 'add_time';
+
+    protected $guarded = [];
+
+    protected $casts = [
+        'deleted' => 'boolean',
+    ];
 }

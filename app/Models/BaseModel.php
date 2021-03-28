@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -16,5 +18,10 @@ class BaseModel extends Model
         }, array_keys($arr));
         $values = array_values($arr);
         return array_combine($keys, $values);
+    }
+
+    public function serializeDate(DateTimeInterface $date)
+    {
+        return Carbon::instance($date)->toDateTimeString();
     }
 }

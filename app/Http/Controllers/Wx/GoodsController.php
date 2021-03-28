@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Wx;
 
 use App\CodeResponse;
+use App\Facades\BrandService;
 use App\Facades\CatalogService;
 use App\Facades\GoodsService;
 use App\Facades\SearchService;
@@ -50,7 +51,7 @@ class GoodsController extends WxController
         $limit = $request->input('limit', 10);
         $sort = $request->input('sort', 'add_time');
         $order = $request->input('order', 'desc');
-        if ($this->isLogin() && !$keyword) {
+        if ($this->isLogin() && $keyword) {
             SearchService::saveGoodsSearchHistory($this->user()->id, $keyword, FromCode::SEARCH_GOODS_HISTORY_FROM_WX);
         }
         $goods = GoodsService::querySelective($categoryId, $brandId, $keyword, $isHot, $isNew, $page, $limit, $sort, $order);
@@ -75,12 +76,36 @@ class GoodsController extends WxController
     public function detail(Request $request)
     {
         $id = $request->input('id');
-        $info = GoodsService::findById($id);
-        //TODO::
+        if (!$id) {
+            return $this->failure(CodeResponse::PARAM_ILLEGAL);
+        }
 
+        $info = GoodsService::findById($id);
+        $goodsAttributeList = GoodsService::queryAttributeByGid($id);
+        $goodsSpecification = GoodsService::getSpecificationVoList($id);
+        $productList = GoodsService::queryProductByGid($id);
+        $issue = GoodsService::queryIssueSelective(1, 4);
+        $brand = $info->brand_id ? BrandService::findById($info->brand_id) : collect([]);
+        $comment = GoodsService::queryGoodsCommentWithUserInfoByGid($id,1,2);
+        $userHasCollect = 0;
+        if($this->isLogin()){
+            $userHasCollect = GoodsService::queryGoodsCollectById($this->user()->id,$id);
+        }
+        //TODO:: 团购
+        $groupon = [];
 
         return $this->success([
-            'info' => $info
+            'info' => $info,
+            'userHasCollect' => $userHasCollect,
+            'issue' => $issue,
+            'comment' => $comment,
+            'specificationList' => $goodsSpecification,
+            'productList' => $productList,
+            'attribute' => $goodsAttributeList,
+            'brand' => $brand,
+            'groupon' => $groupon,
+            'share' => false,
+            'shareImage' => $info->share_url,
         ]);
     }
 }
